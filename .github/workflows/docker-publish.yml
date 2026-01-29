@@ -1,4 +1,4 @@
-name: Docker publish
+name: Docker Publish
 
 on:
   push:
@@ -10,17 +10,17 @@ permissions:
   packages: write
 
 jobs:
-  build-and-publish:
+  build-and-push:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - name: Log in to github container registry
-        uses: docker/login-action@v2
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: build and push docker image
+      - name: Build and push Docker image
         run: |
-          docker build . --tag ghcr.io/rsidugonde-juniper-net/skills-publish-docker-images/stackoverflown:main 
+          docker build . --tag ghcr.io/rsidugonde-juniper-net/skills-publish-docker-images/stackoverflown:main
           docker push ghcr.io/rsidugonde-juniper-net/skills-publish-docker-images/stackoverflown:main
